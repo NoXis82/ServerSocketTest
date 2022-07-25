@@ -63,20 +63,17 @@ class MainActivity : AppCompatActivity() {
 
     inner class ClientSocket(private val address: String, private val port: Int): Thread() {
 
-        val addressIp = address
-        val portIp = port
-
         override fun run() {
             try {
                 socket = Socket(address, port)
                 val byteArrayOutputStream = ByteArrayOutputStream(1024)
                 val buffer = ByteArray(1024)
-                val bytesRead: Int
+                var bytesRead = 0
                 val inputStream = socket!!.getInputStream()
-                bytesRead = inputStream.read(buffer)
                 while (bytesRead != -1) {
+                    bytesRead = inputStream.read(buffer)
                     byteArrayOutputStream.write(buffer, 0, bytesRead)
-                    response += byteArrayOutputStream.toString("UTF-8")
+                    response += byteArrayOutputStream.toString("UTF-8") + "\n"
                     runOnUiThread {
                         textResponse.text = response
                     }

@@ -10,7 +10,6 @@ import java.net.NetworkInterface
 import java.net.ServerSocket
 import java.net.Socket
 import java.net.SocketException
-import java.util.concurrent.atomic.AtomicBoolean
 
 class MainActivity : AppCompatActivity() {
 
@@ -82,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                 while (true) {
                     val socket = serverSocket!!.accept()
                     count++;
-                    message += "#" + count + " from " + socket.inetAddress + ":" + socket.port + "\n"
+                    message += "# $count from ${socket.inetAddress} : ${socket.port} \n"
                     runOnUiThread {
                         msg.text = message
                     }
